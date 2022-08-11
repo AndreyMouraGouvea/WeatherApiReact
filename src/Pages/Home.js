@@ -1,5 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import Tempo from '../components/Tempo'
+import API from '../components/Api'
 
 function Home() {
 
@@ -18,6 +20,7 @@ function Home() {
                 <TouchableOpacity>
                     <Text style={styles.text}>Buscar</Text>
                 </TouchableOpacity>
+                <Tempo />
             </View>
         </View>
     )
