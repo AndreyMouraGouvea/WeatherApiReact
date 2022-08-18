@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Tempo from '../components/Tempo'
 import API from '../components/Api'
 
 function Home() {
+
+    const [city, setCity] = useState('');
+    const [result, setResult] = useState('');
+
+    async function handleCity() {
+
+        const response = await API.get(`weather?array_limit=2&fields=only_results,temp,city_name,forecast
+        ,max,min,date&key={$KEY}&city_name={$city}`)
+        setResult(response.data.forecast[0]);
+    }
 
     return (
         <View style={styles.container}>
@@ -14,13 +24,16 @@ function Home() {
                 <TextInput style={styles.input}
                     placeholder='Digite sua cidade'
                     placeholderTextColor='#FFF'
+                    onChangeText={handleCity}
                 />
             </View>
             <View style={styles.component}>
                 <TouchableOpacity>
                     <Text style={styles.text}>Buscar</Text>
                 </TouchableOpacity>
-                <Tempo />
+            </View>
+            <View style={styles.component}>
+                <Tempo data={result} />
             </View>
         </View>
     )
@@ -45,7 +58,9 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 20,
-        color: '#FFF'
+        color: '#FFF',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     text: {
         fontSize: 20,
