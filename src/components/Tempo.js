@@ -6,12 +6,10 @@ function Tempo(props) {
     return (
 
         <View style={styles.container}>
-            <Text style={styles.text}>Min: {props.data}</Text>
-            <Text style={styles.text}>Máx:</Text>
-            <Text style={styles.text}>Descrição:</Text>
-            <Text style={styles.text}>Min:</Text>
-            <Text style={styles.text}>Min:</Text>
-            <Text style={styles.text}>Min:</Text>
+            <Text style={styles.text}>Data: {props.data.date}</Text>
+            <Text style={styles.text}>Min: {props.data.min}</Text>
+            <Text style={styles.text}>Máx: {props.data.max}</Text>
+            <Text style={styles.text}>Tempo: {props.data.description}</Text>
         </View>
     )
 

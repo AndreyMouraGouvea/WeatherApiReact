@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Tempo from '../components/Tempo'
-import API from '../components/Api'
+import API, {KEY} from '../components/Api'
 
 function Home() {
 
@@ -10,8 +10,8 @@ function Home() {
 
     async function handleCity() {
 
-        const response = await API.get(`weather?array_limit=2&fields=only_results,temp,city_name,forecast
-        ,max,min,date&key={$KEY}&city_name={$city}`)
+        const response = await API.get(`weather?array_limit=2&fields=only_results,temp,city_name,forecast,description
+        ,max,min,date&key=${KEY}&city_name=${city}`)
         setResult(response.data.forecast[0]);
     }
 
@@ -24,11 +24,11 @@ function Home() {
                 <TextInput style={styles.input}
                     placeholder='Digite sua cidade'
                     placeholderTextColor='#FFF'
-                    onChangeText={handleCity}
+                    onChangeText={(value)=>setCity(value)}
                 />
             </View>
             <View style={styles.component}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleCity}>
                     <Text style={styles.text}>Buscar</Text>
                 </TouchableOpacity>
             </View>
