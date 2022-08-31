@@ -7,9 +7,13 @@ function Tempo(props) {
 
         <View style={styles.container}>
             <Text style={styles.text}>Data: {props.data.date}</Text>
-            <Text style={styles.text}>Min: {props.data.min}</Text>
-            <Text style={styles.text}>Máx: {props.data.max}</Text>
-            <Text style={styles.text}>Tempo: {props.data.description}</Text>
+            <Text style={styles.text}>Min: {props.data.min}°C</Text>
+            <Text style={styles.text}>Máx: {props.data.max}°C</Text>
+            <Text style={styles.text}>Descrição: {props.data.description}</Text>
+            <Text style={styles.text}>Data: Amanhã: {props.data2.date}</Text>
+            <Text style={styles.text}>Min: {props.data2.min}°C</Text>
+            <Text style={styles.text}>Máx: {props.data2.max}°C</Text>
+            <Text style={styles.text}>Descrição: {props.data2.description}</Text>
         </View>
     )
 

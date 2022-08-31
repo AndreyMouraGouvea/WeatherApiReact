@@ -7,12 +7,14 @@ function Home() {
 
     const [city, setCity] = useState('');
     const [result, setResult] = useState('');
+    const [result2, setResult2] = useState('');
 
     async function handleCity() {
 
         const response = await API.get(`weather?array_limit=2&fields=only_results,temp,city_name,forecast,description
         ,max,min,date&key=${KEY}&city_name=${city}`)
         setResult(response.data.forecast[0]);
+        setResult2(response.data.forecast[1]);
     }
 
     return (
@@ -33,7 +35,7 @@ function Home() {
                 </TouchableOpacity>
             </View>
             <View style={styles.component}>
-                <Tempo data={result} />
+                <Tempo data={result} data2={result2}/>
             </View>
         </View>
     )
