@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, FlatList } from 'react-native'
 import Tempo from '../components/Tempo'
-import API, {KEY} from '../components/Api'
+import API, { KEY } from '../components/Api'
 
 function Home() {
 
@@ -11,10 +11,17 @@ function Home() {
 
     async function handleCity() {
 
-        const response = await API.get(`weather?array_limit=2&fields=only_results,temp,city_name,forecast,description
+        const response = await API.get(`weather?array_limit=10&fields=only_results,temp,city_name,forecast,description
         ,max,min,date&key=${KEY}&city_name=${city}`)
-        setResult(response.data.forecast[0]);
+        setResult(response.data.forecast);
         setResult2(response.data.forecast[1]);
+    }
+
+    const Divider = () => {
+        return (
+            <View style={{ marginBottom: 10, borderBottomColor: 'red', borderWidth: 2 }}>
+            </View>
+        )
     }
 
     return (
@@ -26,7 +33,7 @@ function Home() {
                 <TextInput style={styles.input}
                     placeholder='Digite sua cidade'
                     placeholderTextColor='#FFF'
-                    onChangeText={(value)=>setCity(value)}
+                    onChangeText={(value) => setCity(value)}
                 />
             </View>
             <View style={styles.component}>
@@ -34,10 +41,34 @@ function Home() {
                     <Text style={styles.text}>Buscar</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.component}>
-                <Tempo data={result} data2={result2}/>
-            </View>
+            {/* <View style={styles.component}>
+                <Tempo data={result} data2={result2}/> 
+            </View> */}
+            <FlatList
+                data={result}
+                ItemSeparatorComponent={Divider}
+                renderItem={({ item }) => {
+                    return (
+                        <View>
+                            <Text style={styles.listtext}>
+                                Data: {item.date}
+                            </Text>
+                            <Text style={styles.listtext}>
+                                Min: {item.min}
+                            </Text>
+                            <Text style={styles.listtext}>
+                                Máx: {item.max}
+                            </Text>
+                            <Text style={styles.listtext}>
+                                Descrição: {item.description}
+                            </Text>
+                        </View>
+                    );
+                }}
+            />
+        
         </View>
+
     )
 
 }
@@ -47,7 +78,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#000'
+        backgroundColor: '#000',
     },
     component: {
         alignItems: 'center',
@@ -68,6 +99,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#FFF'
 
+    },
+    listtext: {
+        fontSize: 18,
+        color: '#FFF'
+    },
+    listContainer: {
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
 
